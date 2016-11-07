@@ -48,7 +48,7 @@ See [CONTRIBUTING.md][7]
 
 ## License
 
-Invo is open-sourced software licensed under the [New BSD License][8]. © Phalcon Framework Team and contributors
+© Phalcon Framework Team and contributors
 
 [1]: https://phalconphp.com/
 [2]: http://httpd.apache.org/
