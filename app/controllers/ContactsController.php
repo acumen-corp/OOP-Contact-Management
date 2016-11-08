@@ -148,6 +148,7 @@ class ContactsController extends ControllerBase
          }
           echo "   <h2>Relationships: </h2>";
           foreach ( $relationships as  $relationship) {
+              echo "<p><strong> $relationship->name </strong> ($relationship->relationship)  </p>";
             }
             echo "  <br/> <br />";
 
