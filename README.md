@@ -25,6 +25,11 @@ switch to the relevant branch.
 * Latest stable [Phalcon Framework release][5] extension enabled
 * [MySQL][6] >= 5.1.5
 
+###
+###      A webserver running on your local machine or hosting provider
+###      pointing to the domain listed in your /app/config/config.ini file.
+####
+
 ### Installation
 
 First you need to clone this repository:
