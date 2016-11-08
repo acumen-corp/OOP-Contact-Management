@@ -19,3 +19,9 @@
  .details label[for=name]{
     display:  none;
  }
+
+.delete-contact {
+  position: absolute;
+  top: 14vh;
+  right: 6vw;
+}
