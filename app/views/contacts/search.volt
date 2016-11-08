@@ -1,0 +1,68 @@
+{{ content() }}
+
+<ul class="pager">
+    <li class="previous pull-left">
+        {{ link_to("contacts/index", "&larr; Go Back") }}
+    </li>
+    <li class="pull-right">
+        {{ link_to("contacts/new", "Create Contact",  "<i class='glyphicon glyphicon-edit' ></i>" ) }}
+    </li>
+</ul>
+
+
+<h2> Search Results </h2>
+
+{% for client in page.items %}
+{% if loop.first %}
+<table class="table table-bordered table-striped" align="center">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Birthday</th>
+        </tr>
+    </thead>
+{% endif %}
+    <tbody>
+        <tr>
+            <td>{{ client.id }}</td>
+            <td>
+                {% if client.birthday === date %}
+                 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                {% endif %}
+                  {{ client.name }}
+            </td>
+            <td>{{ client.email }}</td>
+            <td>{{ client.telephone }}</td>
+            <td>{{ client.address }}</td>
+            <td>{{ client.birthday }}</td>
+              <td width="7%">{{ link_to("contacts/details/" ~ client.id, '<i class="glyphicon glyphicon-edit"></i> Details', "class": "btn btn-primary") }}</td>
+            <td width="7%">{{ link_to("contacts/edit/" ~ client.id, '<i class="glyphicon glyphicon-edit"></i> Edit', "class": "btn btn-warning") }}</td>
+            <td width="7%">{{ link_to("contacts/delete/" ~ client.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-danger") }}</td>
+        </tr>
+    </tbody>
+{% if loop.last %}
+    <tbody>
+        <tr>
+        <td colspan="4" align="left">
+          <p>  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Denotes that its their Birthday Today!  </p>
+        </td>
+            <td colspan="7" align="right">
+                <div class="btn-group">
+                    {{ link_to("contacts/search", '<i class="icon-fast-backward"></i> First', "class": "btn btn-default") }}
+                    {{ link_to("contacts/search?page=" ~ page.before, '<i class="icon-step-backward"></i> Previous', "class": "btn btn-default") }}
+                    {{ link_to("contacts/search?page=" ~ page.next, '<i class="icon-step-forward"></i> Next', "class": "btn btn-default") }}
+                    {{ link_to("contacts/search?page=" ~ page.last, '<i class="icon-fast-forward"></i> Last', "class": "btn btn-default") }}
+                    <span class="help-inline">{{ page.current }}/{{ page.total_pages }}</span>
+                </div>
+            </td>
+        </tr>
+    <tbody>
+</table>
+{% endif %}
+{% else %}
+    No contacts are recorded
+{% endfor %}
