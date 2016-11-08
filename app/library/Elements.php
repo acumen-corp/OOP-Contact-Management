@@ -34,8 +34,8 @@ class Elements extends Component
 
     public $_tabs = array(
 
-        'contacts' => array(
-            'controller' => 'Contacts',
+        'Contacts' => array(
+            'controller' => 'contacts',
             'action' => 'index',
             'any' => false
         ),
