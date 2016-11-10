@@ -63,14 +63,12 @@ class ContactsForm extends Form
               'messageMinimum' => 'Title is too short. Should has more than 5 letters'
             ])
         ));
-        $telephone->hasMessages(
-              $telephone->addValidators(array(
-                  new Phonereg(array(
-                        'patternreturn true;' => '/^((\(\d{3}\))|(\d{3}-))\d{3}-\d{4}$/',
-                        'message' => 'Phone Number is not valid'
-                    ))
-              ))
-        );
+          $telephone->addValidators(array(
+              new Phonereg(array(
+                    'pattern' => '/^((\(\d{3}\))|(\d{3}-))\d{3}-\d{4}$/',
+                    'message' => 'Phone Number is not valid'
+                ))
+          ));
         /*
         if ($telephone.Value !== ""){
           $telephone->addValidators(array(
