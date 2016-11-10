@@ -7,7 +7,8 @@ use Phalcon\Forms\Element\Select;
 use Phalcon\Validation\Validator\Numericality;
 use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Email;
-//use Phalcon\Validation\Validator\Regex as rege;
+ use Phalcon\Validation\Validator\StringLength as StringLength;
+use Phalcon\Validation\Validator\Regex as Phonereg;
 
 
 class ContactsForm extends Form
@@ -54,18 +55,33 @@ class ContactsForm extends Form
         $telephone = new Text("telephone");
         $telephone->setLabel("Phone");
         $telephone->setFilters(array('striptags', 'string'));
+        $telephone->getValue ();
+
         $telephone->addValidators(array(
-            new PresenceOf(array(
-                'message' => 'A Phone number is required'
-            ))
-            /*,
-              new Phone(array(
-                'pattern' => '1',
-                'message' => 'Phone Number is not valid'
-            ))
-            */
+            new StringLength([
+              'min' => 0,
+              'messageMinimum' => 'Title is too short. Should has more than 5 letters'
+            ])
         ));
-        $this->add($telephone);
+        $telephone->hasMessages(
+              $telephone->addValidators(array(
+                  new Phonereg(array(
+                        'patternreturn true;' => '/^((\(\d{3}\))|(\d{3}-))\d{3}-\d{4}$/',
+                        'message' => 'Phone Number is not valid'
+                    ))
+              ))
+        );
+        /*
+        if ($telephone.Value !== ""){
+          $telephone->addValidators(array(
+              new Phonereg(array(
+                    'patternreturn true;' => '/^((\(\d{3}\))|(\d{3}-))\d{3}-\d{4}$/',
+                    'message' => 'Phone Number is not valid'
+                ))
+          ));
+        }
+        */
+        $this->add( $telephone );
 
         $address = new Text("address");
         $address->setLabel("Address");
