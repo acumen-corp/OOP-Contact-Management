@@ -99,7 +99,12 @@ class ContactsController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
         $this->view->contacts = $contacts;
 
+        $short_date = date("m/d/Y");
+        list($m, $d, $y) = explode('/', $short_date);
+        $result = $m;
+        $birthday_check = $result;
 
+        $this->view->setVar("birthday_date", $birthday_check);
         // $this->view->date = date('Y', strtotime($date));
 
     }
