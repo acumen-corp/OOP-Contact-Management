@@ -31,7 +31,9 @@ class Contacts extends Model
 
     public $email;
 
-    public $created_at;
+    // public $created_at;
+
+
 
 /*
     public function beforeCreate()

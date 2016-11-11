@@ -163,7 +163,7 @@ class ContactsController extends ControllerBase
             }
             echo "  <br/> <br />";
 
-            echo  " <div class='delete-contact' ><a href='/contacts/delete/$id'  class='btn btn-danger' onclick='return confirm("Confirm Delete")'><i class='glyphicon glyphicon-remove'></i> Delete Contact</a> </div>";
+            echo  " <div class='delete-contact' ><a href='/contacts/delete/$id'  class='btn btn-danger' onclick='return confirm('Confirm Delete')'><i class='glyphicon glyphicon-remove'></i> Delete Contact</a> </div>";
 
         if (!$this->request->isPost()) {
           //$this->view->contacts->details = RelationshipTypes::findFirstById($id);
