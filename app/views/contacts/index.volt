@@ -27,7 +27,7 @@
 </form>
 
 <br />
-<br /> 
+<br />
 <br />
 <br />
 
@@ -49,20 +49,24 @@
 {% endif %}
     <tbody>
         <tr>
-            <td>{{ contact.id }}</td>
             <td>
-                {% if contact.birthday === date %}
+                {{ contact.id }}
+            </td>
+            <td>
+                {{birthday_date}}
+                {% if  birthday_date == contact.birthday %}
                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                 {% endif %}
-                  {{ contact.name }}
+
+                {{ contact.name }}
             </td>
             <td>{{ contact.email }}</td>
             <td>{{ contact.telephone }}</td>
             <td>{{ contact.address }}</td>
-            <td>{{ contact.birthday }}</td>
+            <td>{{ contact.birthday}} </td>
               <td width="7%">{{ link_to("contacts/details/" ~ contact.id, '<i class="glyphicon glyphicon-edit"></i> Details', "class": "btn btn-primary") }}</td>
             <td width="7%">{{ link_to("contacts/edit/" ~ contact.id, '<i class="glyphicon glyphicon-edit"></i> Edit', "class": "btn btn-warning") }}</td>
-            <td width="7%">{{ link_to("contacts/delete/" ~ contact.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-danger") }}</td>
+            <td width="7%">{{ link_to( "onclick" : "return confirm('Confirm Delete')", "contacts/delete/" ~ contact.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-danger") }}</td>
         </tr>
     </tbody>
 {% if loop.last %}

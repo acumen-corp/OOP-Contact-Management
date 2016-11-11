@@ -47,7 +47,16 @@ class ContactsController extends ControllerBase
         ));
 
         $this->view->page = $paginator->getPaginate();
-        $this->view->date = date("m/d/Y");
+        //$this->view->date = date("m/d/y");
+
+
+
+        $short_date = date("m/d/Y");
+        list($m, $d, $y) = explode('/', $short_date);
+        $result = $m;
+        $birthday_check = $result;
+
+        $this->view->setVar("birthday_date", $birthday_check);
 
     }
 
@@ -90,7 +99,9 @@ class ContactsController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
         $this->view->contacts = $contacts;
 
-         $this->view->date = date("m/d/Y");
+
+        // $this->view->date = date('Y', strtotime($date));
+
     }
 
     /**
@@ -152,7 +163,7 @@ class ContactsController extends ControllerBase
             }
             echo "  <br/> <br />";
 
-            echo  " <div class='delete-contact' ><a href='/contacts/delete/$id'  class='btn btn-danger'><i class='glyphicon glyphicon-remove'></i> Delete Contact</a> </div>";
+            echo  " <div class='delete-contact' ><a href='/contacts/delete/$id'  class='btn btn-danger' onclick='return confirm("Confirm Delete")'><i class='glyphicon glyphicon-remove'></i> Delete Contact</a> </div>";
 
         if (!$this->request->isPost()) {
           //$this->view->contacts->details = RelationshipTypes::findFirstById($id);
