@@ -12,7 +12,7 @@
 
 <h2> Search Results </h2>
 
-{% for client in page.items %}
+{% for contact in page.items %}
 {% if loop.first %}
 <table class="table table-bordered table-striped" align="center">
     <thead>
@@ -28,20 +28,20 @@
 {% endif %}
     <tbody>
         <tr>
-            <td>{{ client.id }}</td>
+            <td>{{ contact.id }}</td>
             <td>
-                {% if client.birthday === date %}
+                {% if  birthday_date == contact.birthday %}
                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                 {% endif %}
-                  {{ client.name }}
+                  {{ contact.name }}
             </td>
-            <td>{{ client.email }}</td>
-            <td>{{ client.telephone }}</td>
-            <td>{{ client.address }}</td>
-            <td>{{ client.birthday }}</td>
-              <td width="7%">{{ link_to("contacts/details/" ~ client.id, '<i class="glyphicon glyphicon-edit"></i> Details', "class": "btn btn-primary") }}</td>
-            <td width="7%">{{ link_to("contacts/edit/" ~ client.id, '<i class="glyphicon glyphicon-edit"></i> Edit', "class": "btn btn-warning") }}</td>
-            <td width="7%">{{ link_to("contacts/delete/" ~ client.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-danger") }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.telephone }}</td>
+            <td>{{ contact.address }}</td>
+            <td>{{ contact.birthday }}</td>
+              <td width="7%">{{ link_to("contacts/details/" ~ contact.id, '<i class="glyphicon glyphicon-edit"></i> Details', "class": "btn btn-primary") }}</td>
+            <td width="7%">{{ link_to("contacts/edit/" ~ contact.id, '<i class="glyphicon glyphicon-edit"></i> Edit', "class": "btn btn-warning") }}</td>
+            <td width="7%">{{ link_to("contacts/delete/" ~ contact.id, '<i class="glyphicon glyphicon-remove"></i> Delete', "class": "btn btn-danger") }}</td>
         </tr>
     </tbody>
 {% if loop.last %}
