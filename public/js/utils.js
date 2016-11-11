@@ -58,5 +58,17 @@ var SignUp = {
 jQuery(document).ready(function ($) {
     $("#registerForm .alert").hide();
     $("div.profile .alert").hide();
-    $('#birthday').datepicker();
+    $('#birthday').datepicker({
+      format: " mm/dd", // Notice the Extra space at the beginning
+      startView: "months",
+      viewMode: "days",
+      minViewMode: "days",
+      maxViewMode: "months"
+    });
+
+    /*
+    $('.delete-contact').on("click", function (){
+        this.alert( "Are you sure?");
+    })
+    */
 });
