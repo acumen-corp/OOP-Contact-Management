@@ -58,7 +58,7 @@ class Elements extends Component
         $auth = $this->session->get('auth');
         if ($auth) {
             $this->_headerMenu['navbar-right']['session'] = array(
-                'caption' => 'Log Out',
+                'caption' => 'Log Out - ' . $auth['name'],
                 'action' => 'end'
             );
         } else {
