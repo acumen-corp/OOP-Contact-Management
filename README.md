@@ -42,7 +42,7 @@ $ git clone https://github.com/acumen-corp/OOP-Contact-Management.git
 Then you'll need to create the database and initialize schema:
 
 ```sh
-$ echo 'CREATE DATABASE invo CHARSET=utf8 COLLATE=utf8_unicode_ci' | mysql -u root
+$ echo 'CREATE DATABASE contact_management CHARSET=utf8 COLLATE=utf8_unicode_ci' | mysql -u root
 $ cat schemas/contact_management.sql | mysql -u root mysql
 ```
 
