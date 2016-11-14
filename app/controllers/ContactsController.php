@@ -148,6 +148,19 @@ class ContactsController extends ControllerBase
          $contact = Contacts::findFirstById($id);
          $relationships  = Relationships::find();
 
+		// Prevent error for invalid contact.
+		//   This prevents link jumping with a falsified route.
+		if (empty($contact)) {
+			$this->flash->error('Invalid Contact detail.');
+
+			return $this->dispatcher->forward(
+			[
+			"controller" => "contacts",
+			"action"     => "index"
+			]
+			);
+		}
+		
         if (!$this->request->isPost()) {
           //$this->view->contacts->details = RelationshipTypes::findFirstById($id);
 
