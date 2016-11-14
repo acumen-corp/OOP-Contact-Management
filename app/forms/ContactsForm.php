@@ -56,14 +56,14 @@ class ContactsForm extends Form
         $telephone = new Text("telephone");
         $telephone->setLabel("Phone");
         $telephone->setFilters(array('striptags', 'string'));
-        $telephone->addValidators(array( 
+        $telephone->addValidators(array(
             new Phonereg(array(
                   'pattern' => '/^((\(\d{3}\))|(\d{3}-))\d{3}-\d{4}$/',
                   'message' => 'Phone Number is not valid',
                   'allowEmpty' => true
               ))
         ));
-        $this->add( $telephone );
+        $this->add($telephone);
 
         $address = new Text("address");
         $address->setLabel("Address");
