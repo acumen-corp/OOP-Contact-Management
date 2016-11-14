@@ -1,14 +1,14 @@
 
 {{ content() }}
 <br />
-<div align="right">
-    {{ link_to("contacts/new", "Create Contact", "class": "btn btn-primary") }}
-</div>
 
 {{ form("contacts/search", 'class': 'form-inline') }}
 
 <h2> Manage Contacts </h2>
 
+<div align="right">
+    {{ link_to("contacts/new", "Create Contact", "class": "btn btn-primary") }}
+</div>
 
 <fieldset class="pull-right">
 

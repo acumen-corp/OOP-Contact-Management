@@ -32,6 +32,18 @@ class ContactsController extends ControllerBase
             $numberPage = $this->request->getQuery("page", "int");
         }
 
+		// If there is no user, return to the login page.
+		if (empty($auth['id'])) {
+			$this->flash->notice("Invalid login");
+			
+			return $this->dispatcher->forward(
+			[
+			"controller" => "session",
+			"action"     => "index"
+			]
+			);
+		}
+		
 		// Limit results to the current user contacts.
         $contacts = Contacts::find('user_id = ' . $auth['id']);
 
@@ -274,6 +286,25 @@ class ContactsController extends ControllerBase
           );
       }
 
+	  public function deleteRelationshipAction($relationshipID, $contact1_id) {
+		$relationship  = Relationships::findFirstById($relationshipID);
+
+  		if (!empty($relationship)) {
+		  if (!$relationship->delete()) {
+			foreach ($contacts->getMessages() as $message) {
+				$this->flash->error($message);
+			}		
+		  }
+		}
+		return $this->dispatcher->forward(		[
+		"controller" => "contacts",
+		"action"     => "details",
+		"params" => [$contact1_id]
+		]
+		);
+	}
+	
+	  
     /**
      * Creates a new contact
      */
