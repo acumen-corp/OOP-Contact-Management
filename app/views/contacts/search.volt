@@ -43,7 +43,6 @@
 <table class="table table-bordered table-striped" align="center">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
@@ -54,7 +53,6 @@
 {% endif %}
     <tbody>
         <tr>
-            <td>{{ contact.id }}</td>
             <td>
                 {% if  birthday_date == contact.birthday %}
                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>

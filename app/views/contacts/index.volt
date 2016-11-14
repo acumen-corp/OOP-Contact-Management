@@ -38,7 +38,6 @@
 <table class="table table-bordered table-striped" align="center">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
@@ -49,9 +48,6 @@
 {% endif %}
     <tbody>
         <tr>
-            <td>
-                {{ contact.id }}
-            </td>
             <td>
                 {{birthday_date}}
                 {% if  birthday_date == contact.birthday %}
