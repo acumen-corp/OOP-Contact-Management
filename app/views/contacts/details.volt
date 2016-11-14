@@ -5,34 +5,30 @@
     </li>
 </ul>
 
-{{ content() }}
+<div class="delete-contact">
+	<a href="/contacts/delete/$id" class="btn btn-danger" onclick="return confirm('Confirm Delete')">
+	<i class="glyphicon glyphicon-remove"></i> Delete Contact</a>
+</div>
 
+<h1>Contact Details</h1>
 
-{# note: this is a comment
+<h2> {{ contact.name}} </h2>
 
-<h2>Contact Details</h2>
-
-{% for contact in contacts  %}
-
-<h1> {{ contact.name}} </h1>
 <p><strong>Email:</strong> {{ contact.email}} </p>
 <p><strong>Phone Number:</strong> {{ contact.telephone}} </p>
 <p><strong>Address:</strong> {{ contact.address}} </p>
 <br>
-<p><strong>Birthday:</strong> {{ contact.birthday}} </p>
-{% endfor %}
 
+<p><strong>Birthday:</strong> {{ contact.birthday}} </p>
 <br>
 
 <h2> Relationships:</h2>
-{% for contact in relationships %}
-
-<h1> {{ contact.name }} </h1>
-
+{% for relationship in relationships %}
+	<h3> {{ relationship.name }} ({{relationship.relationship }})</h3>
 {% endfor %}
+<br/>
 
-#}
-
+<h2>New Relationship</h2>
 
 {{ form("contacts/createrelationship", ['class': 'form-inline']) }}
 
@@ -57,3 +53,5 @@
 
 
 </form>
+
+{{ content() }}

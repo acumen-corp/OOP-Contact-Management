@@ -146,29 +146,8 @@ class ContactsController extends ControllerBase
     {
 
 
-         $contacts = Contacts::find($id);
+         $contact = Contacts::findFirstById($id);
          $relationships  = Relationships::find();
-
-
-         foreach ( $contacts as  $contact) {
-          echo "
-                    <h2>Contact Details</h2>
-                    <h1>  $contact->name </h1>
-                    <p><strong>Email:</strong>  $contact->email  </p>
-                    <p><strong>Phone Number:</strong> $contact->telephone </p>
-                    <p><strong>Address:</strong> $contact->address </p>
-                    <br>
-                    <p><strong>Birthday:</strong> $contact->birthday </p>
-               ";
-
-         }
-          echo "   <h2>Relationships: </h2>";
-          foreach ( $relationships as  $relationship) {
-              echo "<p><strong> $relationship->name </strong> ($relationship->relationship)  </p>";
-            }
-            echo "  <br/> <br />";
-
-            echo  " <div class='delete-contact' ><a href='/contacts/delete/$id'  class='btn btn-danger' onclick='return confirm('Confirm Delete')'><i class='glyphicon glyphicon-remove'></i> Delete Contact</a> </div>";
 
         if (!$this->request->isPost()) {
           //$this->view->contacts->details = RelationshipTypes::findFirstById($id);
@@ -190,7 +169,8 @@ class ContactsController extends ControllerBase
             }
           $this->view->form  = new RelationshipForm($contact_relationship, array('details' => true));
 
-
+		$this->view->contact = $contact;
+		$this->view->relationships = $relationships;
 
         }
 
