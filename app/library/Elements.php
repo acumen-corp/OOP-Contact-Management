@@ -16,13 +16,6 @@ class Elements extends Component
                 'caption' => 'Home',
                 'action' => 'index'
             ),
-
-            'contacts' => array(
-                'caption' => 'Contacts',
-                'action' => 'index'
-            ),
-
-
         ),
         'navbar-right' => array(
             'session' => array(
@@ -60,6 +53,10 @@ class Elements extends Component
             $this->_headerMenu['navbar-right']['session'] = array(
                 'caption' => 'Log Out - ' . $auth['name'],
                 'action' => 'end'
+            );
+            $this->_headerMenu['navbar-left']['contacts'] = array(
+                'caption' => 'Contacts',
+                'action' => 'index'
             );
         } else {
             unset($this->_headerMenu['navbar-left']['invoices']);
