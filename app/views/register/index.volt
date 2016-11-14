@@ -2,7 +2,7 @@
 {{ content() }}
 
 <div class="page-header">
-    <h2>Register for INVO</h2>
+    <h2>Register for Contacts Manager</h2>
 </div>
 
 {{ form('register', 'id': 'registerForm', 'onbeforesubmit': 'return false') }}
