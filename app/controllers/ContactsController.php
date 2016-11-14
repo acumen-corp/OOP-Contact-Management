@@ -160,6 +160,19 @@ class ContactsController extends ControllerBase
 			]
 			);
 		}
+
+		// Restrict access to contact detail if it does not belong to the logged in user.
+		//   This prevents link jumping with a falsified route.
+		if ($contact->user_id != $auth['id']) {
+			$this->flash->error('Invalid Contact detail.');
+
+			return $this->dispatcher->forward(
+			[
+			"controller" => "contacts",
+			"action"     => "index"
+			]
+			);
+		}
 		
         if (!$this->request->isPost()) {
           //$this->view->contacts->details = RelationshipTypes::findFirstById($id);
