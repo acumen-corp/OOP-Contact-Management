@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 07, 2016 at 09:28 PM
+-- Generation Time: Nov 14, 2016 at 12:15 AM
 -- Server version: 5.6.31
 -- PHP Version: 5.6.25
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `contact_management`
 --
+CREATE DATABASE IF NOT EXISTS `contact_management` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `contact_management`;
 
 -- --------------------------------------------------------
 
@@ -28,6 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `contacts` (
   `id` int(10) unsigned NOT NULL,
+  `user_id` int(11) NOT NULL,
   `name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   `telephone` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -44,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
 
 CREATE TABLE IF NOT EXISTS `relationships` (
   `id` int(10) unsigned NOT NULL,
+  `user_id` int(11) NOT NULL,
   `name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   `relationship` varchar(70) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
