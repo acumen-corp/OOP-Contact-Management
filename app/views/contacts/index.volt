@@ -49,7 +49,6 @@
     <tbody>
         <tr>
             <td>
-                {{birthday_date}}
                 {% if  birthday_date == contact.birthday %}
                  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                 {% endif %}
