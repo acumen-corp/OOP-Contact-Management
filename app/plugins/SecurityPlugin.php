@@ -46,7 +46,7 @@ class SecurityPlugin extends Plugin
 
 			//Private area resources
 			$privateResources = array(
-				'contacts'      => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete', 'details', 'createrelationship'),
+				'contacts'      => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete', 'details', 'createrelationship', 'deleteRelationship'),
 				'invoices'     => array('index', 'profile')
 			);
 			foreach ($privateResources as $resource => $actions) {
