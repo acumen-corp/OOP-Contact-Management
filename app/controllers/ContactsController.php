@@ -145,8 +145,9 @@ class ContactsController extends ControllerBase
      */
     public function detailsAction($id)
     {
-         $contact = Contacts::findFirstById($id);
-         $relationships  = Relationships::find();
+		$auth = $this->session->get('auth');
+        $contact = Contacts::findFirstById($id);
+        $relationships  = Relationships::find();
 
 		// Prevent error for invalid contact.
 		//   This prevents link jumping with a falsified route.
