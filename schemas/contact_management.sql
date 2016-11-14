@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `user_id` int(11) NOT NULL,
   `name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
-  `telephone` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `telephone` varchar(30) COLLATE utf8_unicode_ci,
   `address` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `birthday` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
