@@ -179,9 +179,20 @@ class ContactsController extends ControllerBase
 		$this->tag->setDefault('contact1_id', $id);
 		$this->tag->setDefault('user_id', $id);
 
-        $this->view->form  = new RelationshipForm(null, [
-			'details' => true,
-			'user_id' => $auth['id']
+		// Build an array of existing relationship contact2_ids.
+		$existingContact2_ids = array();
+		foreach ( $vRelationships as  $relationship) {
+			array_push($existingContact2_ids, $relationship->contact2_id);
+		}
+
+		// TODO: consider replacing the complex filtering in the MVC view with a stored procedure.
+		// Send contact1_id so we can filter the edited user from the available contacts list for the relationship.
+		// Send existingContact2_ids so we can filter the currently related contacts.
+		$this->view->form  = new RelationshipForm(null, [
+		'details' => true,
+		'user_id' => $auth['id'],
+		'contact1_id' => $id,
+		'existingContact2_ids' => $existingContact2_ids
 		]);
 
 		$this->view->contact = $contact;
@@ -208,9 +219,18 @@ class ContactsController extends ControllerBase
 
           $relationship = new Relationships();
 
+ 		  // Build an array of existing relationship contact2_ids.
+          $vRelationships  = vRelationships::find('contact1_id = ' . $id);
+		  $existingContact2_ids = array();
+		  foreach ( $vRelationships as  $relationship) {
+			array_push($existingContact2_ids, $relationship->contact2_id);
+		  }
+		
 		  $form  = new RelationshipForm(null, [
-			'details' => true,
-			'user_id' => $auth['id']
+		    'details' => true,
+		    'user_id' => $auth['id'],
+		    'contact1_id' => $data['contact1_id'],
+		    'existingContact2_ids' => $existingContact2_ids
 		  ]);
 		  
           if (!$form->isValid($data, $relationship)) {
