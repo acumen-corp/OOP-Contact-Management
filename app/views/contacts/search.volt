@@ -9,8 +9,34 @@
     </li>
 </ul>
 
+{{ form("contacts/search", 'class': 'form-inline') }}
 
-<h2> Search Results </h2>
+<h2> Manage Contacts - Filtered </h2>
+
+<fieldset class="pull-right">
+
+<div class="form-group">
+    <label for="search" class="control-label">Search: </label>
+    <div class="controls">
+        <input id="name" name="name" type="text">
+        <input id="address" name="search[address]"  type="Hidden">
+        <input id="telephone" name="search[telephone]"  type="Hidden">
+        <input id="email" name="search[email]"  type="Hidden">
+        <input id="birthday" name="search[birthday]"  type="Hidden">
+        </div>
+</div>
+
+<div class="form-group">
+<br />
+    {{ submit_button("Search", "class": "btn btn-primary") }}
+</div>
+</fieldset>
+</form>
+
+<br />
+<br />
+<br />
+<br />
 
 {% for contact in page.items %}
 {% if loop.first %}
