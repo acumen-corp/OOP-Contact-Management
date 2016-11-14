@@ -22,23 +22,18 @@ class ContactsController extends ControllerBase
      */
     public function indexAction()
     {
+		$auth = $this->session->get('auth');
+		
         $this->session->conditions = null;
         $this->view->form = new ContactsForm;
 
         $numberPage = 1;
-        if ($this->request->isPost()) {
-            $query = Criteria::fromInput($this->di, "contacts", $this->request->getPost());
-            $this->persistent->searchParams = $query->getParams();
-        } else {
+        if (!$this->request->isPost()) {
             $numberPage = $this->request->getQuery("page", "int");
         }
 
-        $parameters = array();
-        if ($this->persistent->searchParams) {
-            $parameters = $this->persistent->searchParams;
-        }
-
-        $contacts = Contacts::find();
+		// Limit results to the current user contacts.
+        $contacts = Contacts::find('user_id = ' . $auth['id']);
 
         $paginator = new Paginator(array(
             "data"  => $contacts,
@@ -48,8 +43,6 @@ class ContactsController extends ControllerBase
 
         $this->view->page = $paginator->getPaginate();
         //$this->view->date = date("m/d/y");
-
-
 
         $short_date = date("m/d/Y");
         list($m, $d, $y) = explode('/', $short_date);
@@ -65,9 +58,12 @@ class ContactsController extends ControllerBase
      */
     public function searchAction()
     {
+		$auth = $this->session->get('auth');
+		
         $numberPage = 1;
         if ($this->request->isPost()) {
             $query = Criteria::fromInput($this->di, "contacts", $this->request->getPost());
+			$query->andWhere('user_id = ' . $auth['id']);
             $this->persistent->searchParams = $query->getParams();
         } else {
             $numberPage = $this->request->getQuery("page", "int");
@@ -114,6 +110,11 @@ class ContactsController extends ControllerBase
      */
     public function newAction()
     {
+		$auth = $this->session->get('auth');
+
+		// Send the current contact id to the form so we can save it in the relationship table.
+		$this->tag->setDefault('user_id', $auth['id']);
+
         $this->view->form = new ContactsForm(null, array('edit' => true));
     }
 
@@ -144,8 +145,6 @@ class ContactsController extends ControllerBase
      */
     public function detailsAction($id)
     {
-
-
          $contact = Contacts::findFirstById($id);
          $relationships  = Relationships::find();
 
