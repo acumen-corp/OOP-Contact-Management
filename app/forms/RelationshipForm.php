@@ -17,10 +17,12 @@ class RelationshipForm extends Form
     public function initialize($entity = null, $options = array())
     {
 
-      $this->add(new Hidden("id"));
+	  // Post the contact id of the contact that will get the new contact relationship.  This will use the value tagged in the controller.
+      $this->add(new Hidden('user_id', null ));
+      $this->add(new Hidden('contact1_id', null ));
 
-      $contactname = new Select('name', Contacts::find(), array(
-          'using'      => array( 'name', 'name'),
+      $contactname = new Select('contact2_id', Contacts::find(), array(
+          'using'      => array( 'id', 'name'),
           'useEmpty'   => false,
           'emptyText'  => '...',
           'emptyValue' => 'name'

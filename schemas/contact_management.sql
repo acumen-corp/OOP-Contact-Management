@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 14, 2016 at 12:15 AM
+-- Generation Time: Nov 14, 2016 at 02:02 AM
 -- Server version: 5.6.31
 -- PHP Version: 5.6.25
 
@@ -48,7 +48,8 @@ CREATE TABLE IF NOT EXISTS `contacts` (
 CREATE TABLE IF NOT EXISTS `relationships` (
   `id` int(10) unsigned NOT NULL,
   `user_id` int(11) NOT NULL,
-  `name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
+  `contact1_id` int(11) NOT NULL,
+  `contact2_id` int(11) NOT NULL,
   `relationship` varchar(70) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -67,6 +68,28 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `active` char(1) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `vrelationships`
+--
+CREATE TABLE IF NOT EXISTS `vrelationships` (
+`id` int(10) unsigned
+,`contact1_id` int(11)
+,`contact2_id` int(11)
+,`name` varchar(70)
+,`relationship` varchar(70)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `vrelationships`
+--
+DROP TABLE IF EXISTS `vrelationships`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vrelationships` AS select `relationships`.`id` AS `id`,`relationships`.`contact1_id` AS `contact1_id`,`relationships`.`contact2_id` AS `contact2_id`,`contacts`.`name` AS `name`,`relationships`.`relationship` AS `relationship` from (`relationships` join `contacts` on((`relationships`.`contact2_id` = `contacts`.`id`)));
 
 --
 -- Dumping data for table `users`

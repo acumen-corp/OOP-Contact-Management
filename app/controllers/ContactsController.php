@@ -147,7 +147,7 @@ class ContactsController extends ControllerBase
     {
 		$auth = $this->session->get('auth');
         $contact = Contacts::findFirstById($id);
-        $relationships  = Relationships::find();
+        $vRelationships  = vRelationships::find('contact1_id = ' . $id);
 
 		// Prevent error for invalid contact.
 		//   This prevents link jumping with a falsified route.
@@ -174,32 +174,18 @@ class ContactsController extends ControllerBase
 			]
 			);
 		}
-		
-        if (!$this->request->isPost()) {
-          //$this->view->contacts->details = RelationshipTypes::findFirstById($id);
 
-          $contact_relationship = Relationships::find($id);
-          $add = new Relationships();
-          $add->id = $id;
-          $add->save();
+		// Send the current contact id to the form so we can save it in the relationship table.
+		$this->tag->setDefault('contact1_id', $id);
+		$this->tag->setDefault('user_id', $id);
 
-            if (!$contact_relationship) {
-                $this->flash->error("Contact Relationship was not saved");
-
-                return $this->dispatcher->forward(
-                    [
-                        "controller" => "contacts",
-                        "action"     => "index",
-                    ]
-                );
-            }
-          $this->view->form  = new RelationshipForm($contact_relationship, array('details' => true));
+        $this->view->form  = new RelationshipForm(null, [
+			'details' => true,
+			'user_id' => $auth['id']
+		]);
 
 		$this->view->contact = $contact;
-		$this->view->relationships = $relationships;
-
-        }
-
+		$this->view->relationships = $vRelationships;
 
       }
 
@@ -217,11 +203,17 @@ class ContactsController extends ControllerBase
               );
           }
 
-          $form = new RelationshipForm;
-          $contact = new Relationships();
-
+		  $auth = $this->session->get('auth');
           $data = $this->request->getPost();
-          if (!$form->isValid($data, $contact)) {
+
+          $relationship = new Relationships();
+
+		  $form  = new RelationshipForm(null, [
+			'details' => true,
+			'user_id' => $auth['id']
+		  ]);
+		  
+          if (!$form->isValid($data, $relationship)) {
               foreach ($form->getMessages() as $message) {
                   $this->flash->error($message);
               }
@@ -230,19 +222,21 @@ class ContactsController extends ControllerBase
                   [
                       "controller" => "contacts",
                       "action"     => "details",
-                  ]
+					  "params" => [$data['contact1_id']]
+				  ]
               );
           }
 
-          if ($contact->save() == false) {
-              foreach ($contact->getMessages() as $message) {
+          if ($relationship->save() == false) {
+              foreach ($relationship->getMessages() as $message) {
                   $this->flash->error($message);
               }
 
               return $this->dispatcher->forward(
                   [
                       "controller" => "contacts",
-                      "action"     => "index",
+                      "action"     => "details",
+					  "params" => [$data['contact1_id']]
                   ]
               );
           }
@@ -254,7 +248,8 @@ class ContactsController extends ControllerBase
           return $this->dispatcher->forward(
               [
                   "controller" => "contacts",
-                  "action"     => "index",
+                  "action"     => "details",
+				  "params" => [$data['contact1_id']]
               ]
           );
       }
