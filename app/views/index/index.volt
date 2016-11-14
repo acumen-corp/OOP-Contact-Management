@@ -9,15 +9,17 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2> Create </h2>
-        <p>Create, track and export your invoices online. Automate recurring invoices and design your own invoice using our invoice template and brand it with your business logo. </p>
+        <h2>Step 1: Register</h2>
+        <p>Create a new user by clicking the login link at the top right of the page and registering / Logging into the contact manager. </p>
+          {{ link_to('session', 'Login', 'class': 'btn btn-primary btn-large btn-primary') }}
+          {{ link_to('register', 'Register', 'class': 'btn btn-primary btn-large btn-success') }}
     </div>
     <div class="col-md-4">
-        <h2>Manage </h2>
-        <p>Gain critical insights into how your business is doing. See what sells most, who are your top paying customers and the average time your customers take to pay.</p>
+        <h2>Step 2:  Create Contacts</h2>
+        <p>Create a new contact by clicking the create contact button at the top right of the page and filling out the contacts information. </p>
     </div>
     <div class="col-md-4">
-        <h2>Share</h2>
-        <p>Invite users and share your workload as invoice supports multiple users with different permissions. It helps your business to be more productive and efficient. </p>
+        <h2> Step 3: Manage</h2>
+        <p> Click the contacts details page you can added relationships, delete the current contact, or view the contacts detail information.</p>
     </div>
 </div>
