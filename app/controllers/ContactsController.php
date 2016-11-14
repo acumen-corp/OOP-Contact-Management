@@ -44,7 +44,7 @@ class ContactsController extends ControllerBase
 
 		$this->view->page = $paginator->getPaginate();
 
-		$birthday_check = date("m/d"); 
+		$birthday_check = date("m/d");
 
 		$this->view->setVar("birthday_date", $birthday_check);
 	}
@@ -95,6 +95,8 @@ class ContactsController extends ControllerBase
 		$this->view->page = $paginator->getPaginate();
 		$this->view->contacts = $contacts;
 
+		$birthday_check = date("m/d");
+		$this->view->setVar("birthday_date", $birthday_check);
 
 	}
 
@@ -116,22 +118,25 @@ class ContactsController extends ControllerBase
 	*/
 	public function editAction($id)
 	{
+		$auth = $this->session->get('auth');
 
-		if (!$this->request->isPost()) {
+		// Send the current contact id to the form so we can save it in the relationship table.
+		$this->tag->setDefault('user_id', $auth['id']);
 
-			$contact = Contacts::findFirstById($id);
+		$contact = Contacts::findFirstById($id);
+
 			if (!$contact) {
 				$this->flash->error("contact was not found");
 
 				return $this->dispatcher->forward(
-				[
-				"controller" => "contacts",
-				"action"     => "index",
-				]
+					[
+						"controller" => "contacts",
+						"action"     => "index"
+					]
 				);
 			}
 			$this->view->form = new ContactsForm($contact, array('edit' => true));
-		}
+
 	}
 
 
@@ -438,7 +443,8 @@ class ContactsController extends ControllerBase
 		return $this->dispatcher->forward(
 		[
 		"controller" => "contacts",
-		"action"     => "index",
+		"action"     => "edit",
+		"params" => [$id]
 		]
 		);
 	}
