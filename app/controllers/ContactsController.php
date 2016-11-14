@@ -23,7 +23,7 @@ class ContactsController extends ControllerBase
     public function indexAction()
     {
 		$auth = $this->session->get('auth');
-		
+
         $this->session->conditions = null;
         $this->view->form = new ContactsForm;
 
@@ -35,7 +35,7 @@ class ContactsController extends ControllerBase
 		// If there is no user, return to the login page.
 		if (empty($auth['id'])) {
 			$this->flash->notice("Invalid login");
-			
+
 			return $this->dispatcher->forward(
 			[
 			"controller" => "session",
@@ -43,7 +43,7 @@ class ContactsController extends ControllerBase
 			]
 			);
 		}
-		
+
 		// Limit results to the current user contacts.
         $contacts = Contacts::find('user_id = ' . $auth['id']);
 
@@ -56,13 +56,9 @@ class ContactsController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
         //$this->view->date = date("m/d/y");
 
-        $short_date = date("m/d/Y");
-        list($m, $d, $y) = explode('/', $short_date);
-        $result = $m;
-        $birthday_check = $result;
-
+        $birthday_check = date("m/d");
         $this->view->setVar("birthday_date", $birthday_check);
-
+        // $this->view->date = date('Y', strtotime($date));
     }
 
     /**
@@ -71,7 +67,7 @@ class ContactsController extends ControllerBase
     public function searchAction()
     {
 		$auth = $this->session->get('auth');
-		
+
         $numberPage = 1;
         if ($this->request->isPost()) {
             $query = Criteria::fromInput($this->di, "contacts", $this->request->getPost());
@@ -107,13 +103,6 @@ class ContactsController extends ControllerBase
         $this->view->page = $paginator->getPaginate();
         $this->view->contacts = $contacts;
 
-        $short_date = date("m/d/Y");
-        list($m, $d, $y) = explode('/', $short_date);
-        $result = $m;
-        $birthday_check = $result;
-
-        $this->view->setVar("birthday_date", $birthday_check);
-        // $this->view->date = date('Y', strtotime($date));
 
     }
 
@@ -201,10 +190,10 @@ class ContactsController extends ControllerBase
 		// Send contact1_id so we can filter the edited user from the available contacts list for the relationship.
 		// Send existingContact2_ids so we can filter the currently related contacts.
 		$this->view->form  = new RelationshipForm(null, [
-		'details' => true,
-		'user_id' => $auth['id'],
-		'contact1_id' => $id,
-		'existingContact2_ids' => $existingContact2_ids
+  		'details' => true,
+  		'user_id' => $auth['id'],
+  		'contact1_id' => $id,
+  		'existingContact2_ids' => $existingContact2_ids
 		]);
 
 		$this->view->contact = $contact;
@@ -233,18 +222,18 @@ class ContactsController extends ControllerBase
 
  		  // Build an array of existing relationship contact2_ids.
           $vRelationships  = vRelationships::find('contact1_id = ' . $id);
-		  $existingContact2_ids = array();
-		  foreach ( $vRelationships as  $relationship) {
-			array_push($existingContact2_ids, $relationship->contact2_id);
-		  }
-		
-		  $form  = new RelationshipForm(null, [
-		    'details' => true,
-		    'user_id' => $auth['id'],
-		    'contact1_id' => $data['contact1_id'],
-		    'existingContact2_ids' => $existingContact2_ids
-		  ]);
-		  
+    		  $existingContact2_ids = array();
+    		  foreach ( $vRelationships as  $relationship) {
+    			array_push($existingContact2_ids, $relationship->contact2_id);
+    		  }
+
+    		  $form  = new RelationshipForm(null, [
+    		    'details' => true,
+    		    'user_id' => $auth['id'],
+    		    'contact1_id' => $data['contact1_id'],
+    		    'existingContact2_ids' => $existingContact2_ids
+    		  ]);
+
           if (!$form->isValid($data, $relationship)) {
               foreach ($form->getMessages() as $message) {
                   $this->flash->error($message);
@@ -293,7 +282,7 @@ class ContactsController extends ControllerBase
 		  if (!$relationship->delete()) {
 			foreach ($contacts->getMessages() as $message) {
 				$this->flash->error($message);
-			}		
+			}
 		  }
 		}
 		return $this->dispatcher->forward(		[
@@ -303,8 +292,8 @@ class ContactsController extends ControllerBase
 		]
 		);
 	}
-	
-	  
+
+
     /**
      * Creates a new contact
      */

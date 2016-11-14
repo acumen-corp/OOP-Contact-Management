@@ -59,7 +59,7 @@ jQuery(document).ready(function ($) {
     $("#registerForm .alert").hide();
     $("div.profile .alert").hide();
     $('#birthday').datepicker({
-      format: " mm/dd", // Notice the Extra space at the beginning
+      format: "mm/dd", // Notice the Extra space at the beginning
       startView: "months",
       viewMode: "days",
       minViewMode: "days",
