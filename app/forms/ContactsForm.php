@@ -20,7 +20,7 @@ class ContactsForm extends Form
     public function initialize($entity = null, $options = array())
     {
 		// Post the user_id of the current user. This will use the value tagged in the controller.
-        $this->add(new Hidden('user_id'));
+        $this->add(new Hidden('user_id', $this->session->get('auth')['id'] ));
 
         if (!isset($options['edit'])) {
             $element = new Text("id");
@@ -56,30 +56,13 @@ class ContactsForm extends Form
         $telephone = new Text("telephone");
         $telephone->setLabel("Phone");
         $telephone->setFilters(array('striptags', 'string'));
-        $telephone->getValue ();
-
-        $telephone->addValidators(array(
-            new StringLength([
-              'min' => 0,
-              'messageMinimum' => 'Title is too short. Should has more than 5 letters'
-            ])
+        $telephone->addValidators(array( 
+            new Phonereg(array(
+                  'pattern' => '/^((\(\d{3}\))|(\d{3}-))\d{3}-\d{4}$/',
+                  'message' => 'Phone Number is not valid',
+                  'allowEmpty' => true
+              ))
         ));
-          $telephone->addValidators(array(
-              new Phonereg(array(
-                    'pattern' => '/^((\(\d{3}\))|(\d{3}-))\d{3}-\d{4}$/',
-                    'message' => 'Phone Number is not valid'
-                ))
-          ));
-        /*
-        if ($telephone.Value !== ""){
-          $telephone->addValidators(array(
-              new Phonereg(array(
-                    'patternreturn true;' => '/^((\(\d{3}\))|(\d{3}-))\d{3}-\d{4}$/',
-                    'message' => 'Phone Number is not valid'
-                ))
-          ));
-        }
-        */
         $this->add( $telephone );
 
         $address = new Text("address");
@@ -101,7 +84,7 @@ class ContactsForm extends Form
             ))
         ));
         $this->add($birthday);
- 
+
 
 
     }
