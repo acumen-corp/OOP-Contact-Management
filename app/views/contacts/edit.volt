@@ -6,7 +6,7 @@
         {{ link_to("contacts", "&larr; Go Back") }}
     </li>
     <li class="pull-right">
-        {{ submit_button("Save", "class": "btn btn-success") }}
+        {{ submit_button("Update Contact ", "class": "btn btn-success") }}
     </li>
 </ul>
 

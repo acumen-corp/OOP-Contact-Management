@@ -9,13 +9,13 @@
         </li>
     </ul>
 
-    <fieldset  class="form-inline">
+    <fieldset   >
 
     {% for element in form %}
         {% if is_a(element, 'Phalcon\Forms\Element\Hidden') %}
             {{ element }}
         {% else %}
-            <div class="form-group">
+            <div class="form-group col-sm-4">
                 {{ element.label() }}
                 {{ element.render(['class': 'form-control']) }}
             </div>
