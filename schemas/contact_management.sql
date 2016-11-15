@@ -14,12 +14,12 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `contact_management`
 --
-CREATE DATABASE IF NOT EXISTS `contact_management` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `contact_management` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 USE `contact_management`;
 
 -- --------------------------------------------------------
@@ -142,3 +142,11 @@ ALTER TABLE `users`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- TRIGGER for table `contacts`
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `contact_management`.`contacts_BEFORE_DELETE` BEFORE DELETE ON `contacts` FOR EACH ROW
+BEGIN
+delete from Relationships where contact1_id = OLD.id or contact2_id = OLD.id;
+END */;;
+DELIMITER ;
