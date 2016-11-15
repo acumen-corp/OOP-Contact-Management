@@ -23,7 +23,7 @@ switch to the relevant branch.
 * PHP >= 5.6
 * [Apache][2] Web Server with [mod_rewrite] enabled or [Nginx][4] Web Server
 * Latest stable [Phalcon Framework release][5] extension enabled
-* [MySQL][6] >= 5.1.5
+* [MySQL][6] >= 5.1.5 - Must Support Views, Triggers, and DEFAULT CURRENT_TIMESTAMP.
 
 ### Webserver
 * A webserver running on your local machine or hosting provider that
