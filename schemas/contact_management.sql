@@ -145,7 +145,7 @@ ALTER TABLE `users`
 
 -- TRIGGER for table `contacts`
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `contact_management`.`contacts_BEFORE_DELETE` BEFORE DELETE ON `contacts` FOR EACH ROW
+/*!50003 CREATE*/ /*!50003 TRIGGER `contact_management`.`contacts_BEFORE_DELETE` BEFORE DELETE ON `contacts` FOR EACH ROW
 BEGIN
 delete from Relationships where contact1_id = OLD.id or contact2_id = OLD.id;
 END */;;
