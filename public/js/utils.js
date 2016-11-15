@@ -58,12 +58,17 @@ var SignUp = {
 jQuery(document).ready(function ($) {
     $("#registerForm .alert").hide();
     $("div.profile .alert").hide();
+
+    $('#birthday').keydown(function(event) {
+             return false;
+    });
     $('#birthday').datepicker({
       format: "mm/dd", // Notice the Extra space at the beginning
       startView: "months",
       viewMode: "days",
       minViewMode: "days",
-      maxViewMode: "months"
+      maxViewMode: "months",
+      forceParse: true
     });
 
     /*
