@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `name` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
   `telephone` varchar(30) COLLATE utf8_unicode_ci,
-  `address` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(250) COLLATE utf8_unicode_ci NOT NULL,
   `birthday` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
