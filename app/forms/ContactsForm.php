@@ -54,11 +54,11 @@ class ContactsForm extends Form
         $this->add($email);
 
         $telephone = new Text("telephone");
-        $telephone->setLabel("Phone (ex. xxx-xxx-xxxx)");
+        $telephone->setLabel("Phone Number");
         $telephone->setFilters(array('striptags', 'string'));
         $telephone->addValidators(array(
             new Phonereg(array(
-                  'pattern' => '/^((\(\d{3}\))|(\d{3}-))\d{3}-\d{4}$/',
+				  'pattern' => '/^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/',
                   'message' => 'Phone Number is not valid',
                   'allowEmpty' => true
               ))
