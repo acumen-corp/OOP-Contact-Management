@@ -23,7 +23,6 @@
 <br />
     {{ submit_button("Search", "class": "btn btn-primary") }}
     <!-- button type="reset" value="" class="btn btn-default">Reset </button> -->
-    {{ link_to("contacts/index", "Clear", "class": "btn btn-default") }}
 </div>
 </fieldset>
 </form>
