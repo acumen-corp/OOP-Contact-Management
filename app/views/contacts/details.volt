@@ -5,14 +5,14 @@
     </li>
 </ul>
 
-<h1>Contact Details</h1>
-
-<h2> {{ contact.name}} </h2>
-
-<div align="right">
-	<a href="/contacts/delete/$id" class="btn btn-danger" onclick="return confirm('Confirm Delete')">
+<div class="delete-contact" >
+	<a href="/contacts/delete/{{ contact.id }}"  class="btn btn-danger" onclick="return confirm('Confirm Delete')">
 	<i class="glyphicon glyphicon-remove"></i> Delete Contact</a>
 </div>
+
+<h2>Contact Details</h2>
+
+<h1> {{ contact.name}} </h1>
 
 <p><strong>Email:</strong> {{ contact.email}} </p>
 <p><strong>Phone Number:</strong> {{ contact.telephone}} </p>
@@ -24,18 +24,13 @@
 
 <h2> Relationships:</h2>
 {% for relationship in relationships %}
-	<b> {{ relationship.name }} ({{relationship.relationship }})</b>
+	<p><strong>{{ relationship.name }}</strong> ({{ relationship.relationship }})
 	{# Build the delete button with deleteRelationship route. #}
-	<a href="/contacts/deleteRelationship/{{ relationship.id }}/{{ relationship.contact1_id }}" class="btn btn-danger" onclick="return confirm(\'Confirm delete {{ relationship.name}} from relationships."><i class="glyphicon glyphicon-remove"></i> Delete</a>
-	<br/>
-	<br/>
+	<a href="/contacts/deleteRelationship/{{ relationship.id }}/{{ relationship.contact1_id }}" class="btn btn-danger" onclick="return confirm('Confirm delete {{ relationship.name}} from relationships.')"><i class="glyphicon glyphicon-remove"></i> Delete</a>
 {% endfor %}
-<br/>
+<br /> <br />
 
-<h2>New Relationship</h2>
-
-{{ form("contacts/createrelationship", ['class': 'form-inline']) }}
-
+{{ form("contacts/createrelationship", ['class': 'form-inline'])  }}
 
     <fieldset  class="form-inline">
 
@@ -53,8 +48,6 @@
        {{ submit_button("Add Relationship", "class": "btn btn-success") }}
      </div>
     </fieldset>
-
-
 
 </form>
 
