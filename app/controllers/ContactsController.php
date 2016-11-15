@@ -22,8 +22,6 @@ class ContactsController extends ControllerBase
 	*/
 	public function indexAction()
 	{
-		// TODO: Fix Birthday star.
-
 		$auth = $this->session->get('auth');
 
 		$this->session->conditions = null;
@@ -38,14 +36,13 @@ class ContactsController extends ControllerBase
 
 		$paginator = new Paginator(array(
 		"data"  => $contacts,
-		"limit" => 2,
+		"limit" => 5,
 		"page"  => $numberPage
 		));
 
 		$this->view->page = $paginator->getPaginate();
 
 		$birthday_check = date("m/d");
-
 		$this->view->setVar("birthday_date", $birthday_check);
 	}
 
@@ -56,15 +53,11 @@ class ContactsController extends ControllerBase
 	{
 		$auth = $this->session->get('auth');
 
-		// TODO: If the search field is blank, forward to index.
-		// TODO: Persist the search value in the search field.
-
 		$numberPage = 1;
 		if ($this->request->isPost()) {
 			$data = $this->request->getPost();
-			$query = Criteria::fromInput($this->di, "contacts", $data);
-			$query->andWhere('user_id = ' . $auth['id']);
-			$this->persistent->searchParams = $query->getParams();
+			$criteria = Contacts::buildCriteria($data['search'], $auth['id'], $this->getDI());
+			$this->persistent->searchParams = $criteria->getParams();
 		} else {
 			$numberPage = $this->request->getQuery("page", "int");
 		}
@@ -88,9 +81,11 @@ class ContactsController extends ControllerBase
 
 		$paginator = new Paginator(array(
 		"data"  => $contacts,
-		"limit" => 2,
+		"limit" => 5,
 		"page"  => $numberPage
 		));
+
+		$this->view->setVar('lastsearch',  $data['search']);
 
 		$this->view->page = $paginator->getPaginate();
 		$this->view->contacts = $contacts;
@@ -418,7 +413,8 @@ class ContactsController extends ControllerBase
 			return $this->dispatcher->forward(
 			[
 			"controller" => "contacts",
-			"action"     => "new",
+			"action"     => "edit",
+			"params" => [$id]
 			]
 			);
 		}
@@ -431,7 +427,8 @@ class ContactsController extends ControllerBase
 			return $this->dispatcher->forward(
 			[
 			"controller" => "contacts",
-			"action"     => "new",
+			"action"     => "edit",
+			"params" => [$id]
 			]
 			);
 		}

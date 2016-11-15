@@ -1,13 +1,9 @@
 {{ content() }}
 
-<ul class="pager">
-    <li class="previous pull-left">
-        {{ link_to("contacts/index", "&larr; Go Back") }}
-    </li>
-    <li class="pull-right">
-        {{ link_to("contacts/new", "Create Contact",  "<i class='glyphicon glyphicon-edit' ></i>" ) }}
-    </li>
-</ul>
+<br />
+<div align="right">
+    {{ link_to("contacts/new", "Create Contact", "class": "btn btn-primary") }}
+</div>
 
 {{ form("contacts/search", 'class': 'form-inline') }}
 
@@ -18,17 +14,15 @@
 <div class="form-group">
     <label for="search" class="control-label">Search: </label>
     <div class="controls">
-        <input id="name" name="name" type="text">
-        <input id="address" name="search[address]"  type="Hidden">
-        <input id="telephone" name="search[telephone]"  type="Hidden">
-        <input id="email" name="search[email]"  type="Hidden">
-        <input id="birthday" name="search[birthday]"  type="Hidden">
-        </div>
+        <input id="search" name="search" type="text"  value="{{  lastsearch }}" >
+    </div>
 </div>
 
 <div class="form-group">
 <br />
     {{ submit_button("Search", "class": "btn btn-primary") }}
+    <!-- button type="reset" value="" class="btn btn-default">Reset </button> -->
+    {{ link_to("contacts/index", "Clear", "class": "btn btn-default") }}
 </div>
 </fieldset>
 </form>
@@ -72,7 +66,7 @@
     <tbody>
         <tr>
         <td colspan="4" align="left">
-          <p>  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Denotes that its their Birthday Today!  </p>
+          <p>  <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Denotes that it's their Birthday Today!  </p>
         </td>
             <td colspan="7" align="right">
                 <div class="btn-group">
