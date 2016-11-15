@@ -22,17 +22,13 @@ class RelationshipForm extends Form
 
 		// Only show contacts for the current User.
 		$filter = 'user_id = ' . $options['user_id'];
-		// Remove the current contact from the available relationship contacts.
-		if ($options['contact1_id'] != '') {
-			$filter .= ' and id != ' . $options['contact1_id'];
+		
+		// Remove the ineligible contacts from the available relationship contacts.
+		if (isset($options['filter'])) {
+			$filter .= ' and ' . $options['filter'];
 		}
-		// Remove previously associated contacts from the available relationship contacts.
-		if (!empty($options['existingContact2_ids'])) {
-			foreach ( $options['existingContact2_ids'] as $relID) {
-				$filter .= ' and id != ' . $relID;
-			}
-		}
-      $contactname = new Select('contact2_id', Contacts::find($filter), array(
+
+		$contactname = new Select('contact2_id', Contacts::find($filter), array(
           'using'      => array( 'id', 'name'),
           'useEmpty'   => false,
           'emptyText'  => '...',

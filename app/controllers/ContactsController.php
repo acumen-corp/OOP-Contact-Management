@@ -140,8 +140,6 @@ class ContactsController extends ControllerBase
 	*/
 	public function detailsAction($id)
 	{
-		// echo 'id = ' . $id . '<br/>';
-
 		$contact = Contacts::findFirstById($id);
 		$auth = $this->session->get('auth');
 		$vRelationships  = vRelationships::find('contact1_id = ' . $id);
@@ -171,23 +169,14 @@ class ContactsController extends ControllerBase
 			);
 		}
 
-		// Display the relationships on the page and build an array of existing relationship contact2_ids.
-		$existingContact2_ids = array();
-		foreach ( $vRelationships as  $relationship) {
-			array_push($existingContact2_ids, $relationship->contact2_id);
-		}
-
 		// Send the current contact id to the form so we can save it in the relationship table.
 		$this->tag->setDefault('contact1_id', $id);
 		$this->tag->setDefault('user_id', $id);
 
-		// Send contact1_id so we can filter the edited user from the available contacts list for the relationship.
-		// Send existingContact2_ids so we can filter the currently related contacts.
 		$this->view->form  = new RelationshipForm(null, [
 		'details' => true,
 		'user_id' => $auth['id'],
-		'contact1_id' => $id,
-		'existingContact2_ids' => $existingContact2_ids
+		'filter' => Relationships::filterIneligibleContacts($id)
 		]);
 
 		$this->view->contact = $contact;
