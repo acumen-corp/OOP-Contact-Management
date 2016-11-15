@@ -17,6 +17,13 @@ class Relationships extends \Phalcon\Mvc\Model
      * @var integer
      * @Column(type="integer", length=10, nullable=false)
      */
+	public user_id;
+	
+    /**
+     *
+     * @var integer
+     * @Column(type="integer", length=10, nullable=false)
+     */
     public $contact1_id;
 
     /**
